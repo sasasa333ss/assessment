@@ -14,14 +14,26 @@ assessmentButton.addEventListener(
 
     //診断結果表示エリアの作成
     resultDivision.innerText = '';//divタグで空文字へ置き換えたことで子要素を全削除と同じ意味になる
-    const header = document.createElement('h3');//h3タグの作成
-    header.innerText = '診断結果';//タグの内側のテキスト
-    resultDivision.appendChild(header);//divタグの子要素として追加
 
+    //headerDivisionの作成
+    const headerDivision = document.createElement('div');
+    headerDivision.setAttribute('class', 'card-header text-bg-primary');
+    headerDivision.innerText = '診断結果';
+    //bodyDivision の作成
+    const bodyDivision = document.createElement('div');
+    bodyDivision.setAttribute('class', 'card-body');
+    //診断結果の文章を表示
     const paragraph = document.createElement('p');
+    paragraph.setAttribute('class', 'card-text');
     const result = assessment(userName);
     paragraph.innerText = result;
-    resultDivision.appendChild(paragraph);
+    bodyDivision.appendChild(paragraph);
+
+    //resultDivision に boostrap のスタイルを適用する
+    resultDivision.setAttribute('class', 'card');
+    //headerDivision と bodyDivision を resultDivision に差し込む
+    resultDivision.appendChild(headerDivision);
+    resultDivision.appendChild(bodyDivision);
     //X投稿ボタンの作成
     tweetDivision.innerText = '';
     const anchor = document.createElement('a');
@@ -44,14 +56,14 @@ assessmentButton.addEventListener(
 );
 
 userNameInput.addEventListener(
-      'keydown',
-      (event) => {
-        if (event.code === 'Enter') {
-          assessmentButton.dispatchEvent(new Event('click'));
-        }
-      }
-    )
-    
+  'keydown',
+  (event) => {
+    if (event.code === 'Enter') {
+      assessmentButton.dispatchEvent(new Event('click'));
+    }
+  }
+)
+
 const answers = [
   '###userName###のいいところは声です。###userName###の特徴的な声は皆を惹きつけ、心に残ります。',
   '###userName###のいいところはまなざしです。###userName###に見つめられた人は、気になって仕方がないでしょう。',
